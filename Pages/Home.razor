@@ -26,6 +26,35 @@
         </form>
     </section>
 
+    <section class="mx-auto max-w-6xl px-4">
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            @foreach (var f in facts)
+            {
+                <div class="rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200">
+                    <span class="grid h-11 w-11 place-items-center rounded-full bg-cyan-600 text-white"><Icon Name="@f.Icon" Size="20" /></span>
+                    <p class="mt-4 font-serif text-3xl text-slate-950">@f.Value</p>
+                    <p class="mt-1 text-xs font-bold uppercase tracking-wider text-slate-400">@f.Label</p>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="grid items-center gap-10 md:grid-cols-2">
+        <div class="relative h-96 overflow-hidden rounded-[2rem] shadow-xl">
+            <img src="@PlaceImages.ForCategory("Heritage")" alt="Historic Cebu" class="absolute inset-0 h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent"></div>
+        </div>
+        <div>
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">About the city</p>
+            <h2 class="mt-2 font-serif text-4xl font-normal tracking-tight text-slate-950">The oldest city in the <em>Philippines</em></h2>
+            <p class="mt-5 leading-7 text-slate-600">Cebu City was the first Spanish settlement in the country, founded in 1565. Today it is a busy port and the commercial heart of the Visayas, where centuries-old churches and forts sit beside modern malls and business districts.</p>
+            <p class="mt-4 leading-7 text-slate-600">Most visitors base themselves in the city and explore in three directions: the historic downtown on foot, the cool Busay highlands by car, and the beaches and islands beyond Metro Cebu.</p>
+            <a href="explore" class="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-500">
+                Start exploring <Icon Name="arrow-up-right" Size="15" />
+            </a>
+        </div>
+    </section>
+
     <section>
         <div class="mb-6">
             <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Find your way</p>
@@ -50,6 +79,31 @@
     </section>
 
     <section>
+        <div class="mb-6">
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Where to go</p>
+            <h2 class="mt-2 font-serif text-4xl font-normal tracking-tight text-slate-950">Tourist <em>areas</em></h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2">
+            @foreach (var a in areas)
+            {
+                <a href="explore?q=@Uri.EscapeDataString(a.Name)" class="group flex gap-5 rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-lg">
+                    <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-orange-500 text-white"><Icon Name="map-pin" Size="24" /></span>
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-serif text-2xl text-slate-950">@a.Name</h3>
+                            <span class="rounded-full bg-cyan-100 px-2.5 py-0.5 text-xs font-bold text-cyan-800">@Places.All.Count(p => p.Area == a.Name) places</span>
+                        </div>
+                        <p class="mt-2 text-sm leading-6 text-slate-600">@a.Blurb</p>
+                        <span class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-cyan-700 group-hover:text-orange-600">
+                            See places <Icon Name="arrow-up-right" Size="14" />
+                        </span>
+                    </div>
+                </a>
+            }
+        </div>
+    </section>
+
+    <section>
         <div class="mb-6 flex items-end justify-between">
             <div>
                 <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Cebu essentials</p>
@@ -66,6 +120,67 @@
             }
         </div>
     </section>
+    
+    <section>
+        <div class="mb-6">
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Plan your visit</p>
+            <h2 class="mt-2 font-serif text-4xl font-normal tracking-tight text-slate-950">When to <em>go</em></h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3">
+            @foreach (var s in seasons)
+            {
+                <div class="rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200">
+                    <span class="grid h-11 w-11 place-items-center rounded-full bg-orange-500 text-white"><Icon Name="@s.Icon" Size="20" /></span>
+                    <p class="mt-4 text-xs font-bold uppercase tracking-wider text-slate-400">@s.Months</p>
+                    <h3 class="mt-1 font-serif text-2xl text-slate-950">@s.Title</h3>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">@s.Copy</p>
+                </div>
+            }
+        </div>
+    </section>
+
+<section class="relative overflow-hidden rounded-[2rem] bg-slate-900 px-8 py-14 text-white shadow-xl md:px-14">
+    <img src="@PlaceImages.Hero" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent"></div>
+    <div class="relative max-w-xl">
+        <p class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-orange-400">
+            <Icon Name="calendar" Size="16" /> Every January
+        </p>
+        <h2 class="mt-3 font-serif text-4xl font-normal tracking-tight md:text-5xl">The <em>Sinulog</em> Festival</h2>
+        <p class="mt-4 leading-7 text-white/80">Cebu's biggest celebration honors the Santo Niño with a grand street parade, dance contests and all-night street parties. The main parade is held on the third Sunday of January, so book lodging months ahead.</p>
+        <a href="explore/basilica-santo-nino" class="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-950 hover:bg-orange-500 hover:text-white">
+            Visit the Basilica <Icon Name="arrow-up-right" Size="15" />
+        </a>
+    </div>
+</section>
+
+<section>
+    <div class="mb-6">
+        <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Before you land</p>
+        <h2 class="mt-2 font-serif text-4xl font-normal tracking-tight text-slate-950">Travel <em>essentials</em></h2>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+        @foreach (var t in essentials)
+        {
+            <div class="flex gap-4 rounded-2xl bg-white p-5 ring-1 ring-slate-200">
+                <Icon Name="@t.Icon" Size="22" Class="mt-0.5 shrink-0 text-cyan-600" />
+                <div>
+                    <h3 class="font-bold text-slate-950">@t.Title</h3>
+                    <p class="mt-1 text-sm leading-6 text-slate-600">@t.Copy</p>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="rounded-[2rem] bg-cyan-950 px-8 py-14 text-center text-white">
+    <Icon Name="compass" Size="40" Class="mx-auto text-orange-400" />
+    <h2 class="mt-4 font-serif text-4xl font-normal tracking-tight">Ready to build your <em>itinerary</em>?</h2>
+    <p class="mx-auto mt-3 max-w-lg text-cyan-100">Save the places you like and they will be waiting in My Trip.</p>
+    <a href="explore" class="mt-7 inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3.5 font-bold text-white hover:bg-orange-600">
+        Browse all places <Icon Name="arrow-up-right" Size="16" />
+    </a>
+</section>
 </div>
 
 @code {
@@ -77,6 +192,37 @@
         ("Nature",   "mountain",     "Highlands & gardens"),
         ("Food",     "utensils",     "Taste the island"),
         ("Shopping", "shopping-bag", "Markets & local finds")
+    };
+
+    private readonly (string Icon, string Value, string Label)[] facts =
+    {
+        ("landmark", "1565",   "Year founded"),
+        ("users",    "~1M",    "Residents"),
+        ("sun",      "Dec-May","Dry season"),
+        ("plane",    "Mactan", "Main airport")
+    };
+
+    private readonly (string Name, string Blurb)[] areas =
+    {
+        ("Downtown",      "The historic core. Magellan's Cross, the Basilica, Colon Street and Carbon Market are all within walking distance."),
+        ("Busay",         "Cool highlands above the city with Tops Lookout, Temple of Leah and sweeping skyline views."),
+        ("Parian",        "The old Chinese-mestizo quarter, home to ancestral houses and museums like Casa Gorordo."),
+        ("Fuente Osmeña", "The city's circle of nightlife and street food, known for the open-air grills at Larsian.")
+    };
+
+    private readonly (string Icon, string Months, string Title, string Copy)[] seasons =
+    {
+        ("sun",      "Dec - May",  "Dry season",   "The best weather for sightseeing and island trips. January to March is busiest."),
+        ("calendar", "Jan",        "Festival month", "Sinulog fills the streets. Expect crowds, closed roads and higher prices."),
+        ("compass",  "Jun - Nov",  "Wet season",   "Fewer tourists and lower rates, but pack a rain jacket and stay flexible.")
+    };
+
+    private readonly (string Icon, string Title, string Copy)[] essentials =
+    {
+        ("plane",  "Getting there",   "Fly into Mactan-Cebu International Airport, about 30 to 45 minutes from the city center depending on traffic."),
+        ("wallet", "Money",           "Philippine peso (₱). Carry small bills for markets, jeepneys and street food."),
+        ("map-pin","Getting around",  "Use ride-hailing apps, taxis or jeepneys. Downtown is best explored on foot."),
+        ("users",  "Language",        "Cebuano is widely spoken, and English is understood almost everywhere.")
     };
 
     private void Search() => Nav.NavigateTo($"explore?q={Uri.EscapeDataString(query)}");
