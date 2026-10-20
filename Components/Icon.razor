@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="@Size" height="@Size" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="@Class" aria-hidden="true">
+    @((MarkupString)Paths)
+</svg>
+
+@code {
+    [Parameter, EditorRequired] public string Name { get; set; } = "";
+    [Parameter] public int Size { get; set; } = 20;
+    [Parameter] public string? Class { get; set; }
+
+    private string Paths => Name switch
+    {
+        "arrow-up-right" => "<path d='M7 7h10v10'/><path d='M7 17 17 7'/>",
+        "check"          => "<path d='M20 6 9 17l-5-5'/>",
+        "map-pin"        => "<path d='M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0'/><circle cx='12' cy='10' r='3'/>",
+        "plus"           => "<path d='M5 12h14'/><path d='M12 5v14'/>",
+        "x"              => "<path d='M18 6 6 18'/><path d='m6 6 12 12'/>",
+        "search"         => "<path d='m21 21-4.34-4.34'/><circle cx='11' cy='11' r='8'/>",
+        "shopping-bag"   => "<path d='M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z'/><path d='M3 6h18'/><path d='M16 10a4 4 0 0 1-8 0'/>",
+        "utensils"       => "<path d='M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2'/><path d='M7 2v20'/><path d='M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7'/>",
+        "mountain"       => "<path d='m8 3 4 8 5-5 5 15H2L8 3z'/>",
+        "landmark"       => "<line x1='3' x2='21' y1='22' y2='22'/><line x1='6' x2='6' y1='18' y2='11'/><line x1='10' x2='10' y1='18' y2='11'/><line x1='14' x2='14' y1='18' y2='11'/><line x1='18' x2='18' y1='18' y2='11'/><polygon points='12 2 20 7 4 7'/>",
+        "lightbulb"      => "<path d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/><path d='M9 18h6'/><path d='M10 22h4'/>",
+        "luggage"        => "<path d='M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2'/><path d='M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14'/><path d='M10 20v2'/><path d='M14 20v2'/>",
+        "compass"        => "<circle cx='12' cy='12' r='10'/><path d='m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z'/>",
+        _                => ""
+    };
+
+    public static string ForCategory(string category) => category switch
+    {
+        "Heritage" => "landmark",
+        "Nature"   => "mountain",
+        "Food"     => "utensils",
+        _          => "shopping-bag"
+    };
+}

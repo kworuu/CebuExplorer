@@ -1,7 +1,81 @@
 ﻿@page "/"
+@inject PlaceService Places
+@inject NavigationManager Nav
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Cebu Explorer</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="space-y-14">
+    <section class="relative min-h-[38rem] overflow-hidden rounded-[2.5rem] border-2 border-white bg-slate-900 px-6 py-14 text-center text-white shadow-2xl md:px-14 md:py-20">
+        <img src="@PlaceImages.Hero" alt="Turquoise water and islands in Cebu" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/15 via-slate-950/20 to-slate-950/80"></div>
 
-Welcome to your new app.
+        <div class="relative flex min-h-[30rem] flex-col items-center justify-end">
+            <p class="mb-5 rounded-full border border-white/40 bg-white/10 px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.28em] text-white backdrop-blur-md">The Queen City of the South</p>
+            <h1 class="max-w-4xl font-serif text-5xl font-normal leading-[0.93] tracking-tight md:text-7xl">Embrace the wild <em class="font-light">spirit</em> of Cebu</h1>
+            <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-white/85 md:text-base">Heritage sites, hilltop views, and the best lechon in the country, curated into one unforgettable island guide.</p>
+
+            <form @onsubmit="Search" class="mx-auto mt-8 flex w-full max-w-xl flex-col gap-2 rounded-full bg-white p-1.5 shadow-2xl sm:flex-row">
+                <input aria-label="Search Cebu" @bind="query" @bind:event="oninput" placeholder="Search places, food, areas…"
+                       class="min-w-0 flex-1 rounded-xl px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400" />
+                <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-3 font-bold text-white transition hover:bg-orange-500">
+                    Search <Icon Name="arrow-up-right" Size="17" />
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section>
+        <div class="mb-6">
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Find your way</p>
+            <h2 class="mt-2 font-serif text-4xl font-normal tracking-tight text-slate-950">Browse by <em>category</em></h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            @foreach (var c in categories)
+            {
+                <a href="explore?category=@c.Name" class="group relative block min-h-64 overflow-hidden rounded-[1.75rem] text-left shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+                    <img src="@PlaceImages.ForCategory(c.Name)" alt="" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent"></div>
+                    <span class="absolute left-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-slate-950 backdrop-blur">
+                        <Icon Name="@c.Icon" Size="20" />
+                    </span>
+                    <span class="absolute inset-x-0 bottom-0 p-5 text-white">
+                        <strong class="block font-serif text-2xl font-normal">@c.Name</strong>
+                        <span class="mt-1 block text-xs text-white/70">@c.Copy</span>
+                    </span>
+                </a>
+            }
+        </div>
+    </section>
+
+    <section>
+        <div class="mb-6 flex items-end justify-between">
+            <div>
+                <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Cebu essentials</p>
+                <h2 class="mt-2 font-serif text-4xl font-normal tracking-tight text-slate-950">Featured <em>places</em></h2>
+            </div>
+            <a href="explore" class="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-orange-500">
+                See all <Icon Name="arrow-up-right" Size="15" />
+            </a>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach (var p in Places.Featured())
+            {
+                <PlaceCard Place="p" />
+            }
+        </div>
+    </section>
+</div>
+
+@code {
+    private string query = "";
+
+    private readonly (string Name, string Icon, string Copy)[] categories =
+    {
+        ("Heritage", "landmark",     "Stories carved in stone"),
+        ("Nature",   "mountain",     "Highlands & gardens"),
+        ("Food",     "utensils",     "Taste the island"),
+        ("Shopping", "shopping-bag", "Markets & local finds")
+    };
+
+    private void Search() => Nav.NavigateTo($"explore?q={Uri.EscapeDataString(query)}");
+}

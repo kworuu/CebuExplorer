@@ -1,0 +1,22 @@
+<a href="explore/@Place.Id"
+   class="group relative block min-h-[32rem] overflow-hidden rounded-[2rem] bg-slate-900 shadow-xl transition duration-500 hover:-translate-y-2 hover:shadow-2xl">
+    <img src="@Place.Cover" alt="" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+    <div class="absolute inset-x-0 bottom-0 p-6 text-white">
+        <span class="inline-flex rounded-full bg-white/15 px-3 py-1.5 text-[0.65rem] font-bold uppercase tracking-wider backdrop-blur-md">@Place.Category</span>
+        <h3 class="mt-4 font-serif text-3xl font-normal">@Place.Name</h3>
+        <p class="mt-2 flex items-center gap-1.5 text-sm text-white/70"><Icon Name="map-pin" Size="15" /> @Place.Area</p>
+        <p class="mt-4 line-clamp-2 text-sm leading-6 text-white/75">@Place.Summary</p>
+        <div class="mt-4 flex gap-2">
+            <span class="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 text-xs backdrop-blur"><Icon Name="map-pin" Size="13" /> @Place.Area</span>
+            <span class="rounded-full bg-white/15 px-3 py-1.5 text-xs backdrop-blur">@Place.BestTime</span>
+        </div>
+        <span class="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-white py-3.5 text-sm font-bold text-slate-950 transition group-hover:bg-orange-500 group-hover:text-white">
+            View place <Icon Name="arrow-up-right" Size="16" />
+        </span>
+    </div>
+</a>
+
+@code {
+    [Parameter, EditorRequired] public Place Place { get; set; } = default!;
+}

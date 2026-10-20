@@ -1,0 +1,54 @@
+@import "tailwindcss" source(none);
+
+@source "../**/*.razor";
+@source "../wwwroot/index.html";
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-white text-slate-800 font-sans antialiased;
+    margin: 0;
+    min-width: 320px;
+  }
+  ::selection { background: #fb923c; color: white; }
+  h1:focus { outline: none; }
+  button, a { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, a:focus-visible, input:focus-visible {
+    outline: 3px solid rgba(6, 182, 212, 0.35);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------- Blazor template essentials ---------- */
+#blazor-error-ui {
+  color-scheme: light only;
+  background: lightyellow;
+  bottom: 0; left: 0; width: 100%;
+  box-shadow: 0 -1px 2px rgba(0,0,0,.2);
+  box-sizing: border-box;
+  display: none;
+  padding: .6rem 1.25rem .7rem;
+  position: fixed;
+  z-index: 1000;
+}
+#blazor-error-ui .dismiss { cursor: pointer; position: absolute; right: .75rem; top: .5rem; }
+
+.loading-progress {
+  position: absolute; display: block;
+  width: 8rem; height: 8rem;
+  inset: 20vh 0 auto 0; margin: 0 auto;
+}
+.loading-progress circle {
+  fill: none; stroke: #e0e0e0; stroke-width: .6rem;
+  transform-origin: 50% 50%; transform: rotate(-90deg);
+}
+.loading-progress circle:last-child {
+  stroke: #0891b2;
+  stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * .8), 500%;
+  transition: stroke-dasharray .05s ease-in-out;
+}
+.loading-progress-text {
+  position: absolute; text-align: center; font-weight: bold;
+  inset: calc(20vh + 3.25rem) 0 auto .2rem;
+}
+.loading-progress-text:after { content: var(--blazor-load-percentage-text, "Loading"); }

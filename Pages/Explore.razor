@@ -1,0 +1,68 @@
+@page "/explore"
+@inject PlaceService Places
+
+<PageTitle>Explore Cebu</PageTitle>
+
+<div>
+    <p class="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">Island guide</p>
+    <h1 class="mt-2 font-serif text-5xl font-normal tracking-tight text-slate-950">Explore <em>Cebu</em></h1>
+    <p class="mt-3 max-w-2xl text-slate-600">From storied streets to cool mountain viewpoints, discover your next Cebu stop.</p>
+
+    <div class="mt-8 rounded-3xl bg-slate-50 p-4 shadow-sm ring-1 ring-slate-900/5">
+        <input @bind="search" @bind:event="oninput" placeholder="Search by place, area, or keyword…"
+               class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100" />
+        <div class="mt-4 flex gap-2 overflow-x-auto pb-1">
+            @foreach (var c in new[] { "All" }.Concat(PlaceService.Categories))
+            {
+                var item = c;
+                <button @onclick="() => selected = item"
+                        class="shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition
+                               @(selected == item ? "bg-cyan-600 text-white shadow-md" : "bg-cyan-50 text-cyan-800 hover:bg-cyan-100")">
+                    @item
+                </button>
+            }
+        </div>
+    </div>
+
+    @{ var results = Filtered; }
+    <p class="my-6 text-sm font-medium text-slate-500">@results.Count place@(results.Count == 1 ? "" : "s") found</p>
+
+    @if (results.Count == 0)
+    {
+        <div class="rounded-3xl bg-white py-20 text-center shadow-sm">
+            <Icon Name="search" Size="48" Class="mx-auto text-slate-400" />
+            <p class="mt-4 font-serif text-xl font-bold text-cyan-950">No places match your search.</p>
+            <button @onclick="Clear" class="mt-4 font-semibold text-cyan-700">Clear filters</button>
+        </div>
+    }
+    else
+    {
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach (var p in results)
+            {
+                <PlaceCard Place="p" />
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [SupplyParameterFromQuery(Name = "category")] public string? CategoryParam { get; set; }
+    [SupplyParameterFromQuery(Name = "q")] public string? QueryParam { get; set; }
+
+    private string selected = "All";
+    private string search = "";
+
+    protected override void OnParametersSet()
+    {
+        selected = CategoryParam ?? "All";
+        search = QueryParam ?? "";
+    }
+
+    private void Clear() { search = ""; selected = "All"; }
+
+    private List<Place> Filtered => Places.All.Where(p =>
+        (selected == "All" || p.Category == selected) &&
+        $"{p.Name} {p.Area} {p.Keywords} {p.Summary}".Contains(search, StringComparison.OrdinalIgnoreCase)
+    ).ToList();
+}
