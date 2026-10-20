@@ -1,0 +1,30 @@
+# .NET build output
+bin/
+obj/
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Generated Blazor assets
+wwwroot/_framework/
+
+# Environment / Local settings
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database (if SQLite is used)
+*.db
+*.db-shm
+*.db-wal
