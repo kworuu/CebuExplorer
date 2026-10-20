@@ -5,23 +5,25 @@
 <PageTitle>Cebu Explorer</PageTitle>
 
 <div class="space-y-14">
-    <section class="relative min-h-[38rem] overflow-hidden rounded-[2.5rem] border-2 border-white bg-slate-900 px-6 py-14 text-center text-white shadow-2xl md:px-14 md:py-20">
-        <img src="@PlaceImages.Hero" alt="Turquoise water and islands in Cebu" class="absolute inset-0 h-full w-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/15 via-slate-950/20 to-slate-950/80"></div>
+    <section class="relative left-1/2 -mt-8 w-screen -translate-x-1/2 md:-mt-12">
+        <div class="relative min-h-[36rem] overflow-hidden px-6 text-center text-white">
+            <img src="@PlaceImages.Hero" alt="Turquoise water and islands in Cebu" class="absolute inset-0 h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-slate-950/30 to-slate-950/60"></div>
 
-        <div class="relative flex min-h-[30rem] flex-col items-center justify-end">
-            <p class="mb-5 rounded-full border border-white/40 bg-white/10 px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.28em] text-white backdrop-blur-md">The Queen City of the South</p>
-            <h1 class="max-w-4xl font-serif text-5xl font-normal leading-[0.93] tracking-tight md:text-7xl">Embrace the wild <em class="font-light">spirit</em> of Cebu</h1>
-            <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-white/85 md:text-base">Heritage sites, hilltop views, and the best lechon in the country, curated into one unforgettable island guide.</p>
-
-            <form @onsubmit="Search" class="mx-auto mt-8 flex w-full max-w-xl flex-col gap-2 rounded-full bg-white p-1.5 shadow-2xl sm:flex-row">
-                <input aria-label="Search Cebu" @bind="query" @bind:event="oninput" placeholder="Search places, food, areas…"
-                       class="min-w-0 flex-1 rounded-xl px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400" />
-                <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-3 font-bold text-white transition hover:bg-orange-500">
-                    Search <Icon Name="arrow-up-right" Size="17" />
-                </button>
-            </form>
+            <div class="relative mx-auto flex min-h-[36rem] max-w-4xl flex-col items-center justify-center pb-16">
+                <p class="mb-5 rounded-full border border-white/40 bg-white/10 px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.28em] backdrop-blur-md">The Queen City of the South</p>
+                <h1 class="font-serif text-5xl font-normal leading-[0.95] tracking-tight md:text-7xl">Embrace the wild <em class="font-light">spirit</em> of Cebu</h1>
+                <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-white/90 md:text-base">Heritage sites, hilltop views, and the best lechon in the country, curated into one unforgettable island guide.</p>
+            </div>
         </div>
+
+        <form @onsubmit="Search" class="relative z-10 mx-auto -mt-8 flex w-[calc(100%-2rem)] max-w-xl flex-col gap-2 rounded-full bg-white p-1.5 shadow-2xl ring-1 ring-slate-200 sm:flex-row">
+            <input aria-label="Search Cebu" @bind="query" @bind:event="oninput" placeholder="Search places, food, areas…"
+                class="min-w-0 flex-1 rounded-xl px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400" />
+            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-3 font-bold text-white transition hover:bg-orange-500">
+                Search <Icon Name="arrow-up-right" Size="17" />
+            </button>
+        </form>
     </section>
 
     <section>
